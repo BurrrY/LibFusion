@@ -120,7 +120,26 @@ void FusionTestSuit::DatabasePrefsInt()
 
 
 void FusionTestSuit::watchedFolders() {
+    //QList<FWatchedFolder> getWatchedFoldersList();
+    QCOMPARE(db.getWatchedFoldersList().count(), 0);
 
+    FWatchedFolder wf;
+    wf.setLauncherID(5);
+    wf.setDbID(18);
+    wf.setDirectory(QDir("/test"));
+    QCOMPARE(wf.getLauncherID(), 5);
+    QCOMPARE(wf.getDbID(), 18);
+    QCOMPARE(wf.getDirectory().absolutePath(), QString("/test"));
+   
+    QVERIFY(db.addWatchedFolder(wf));
+    QCOMPARE(db.getWatchedFoldersList().count(), 1);
+
+    QVERIFY(!db.addWatchedFolder(wf)); //returns false, folder already exists
+    QCOMPARE(db.getWatchedFoldersList().count(), 1);
+
+
+    //bool watchedFolderExists(FWatchedFolder *wf);
+    //bool updateWatchedFolders(QList<FWatchedFolder> data);
 }
 
 void FusionTestSuit::addGame()
