@@ -247,6 +247,9 @@ QString FGame::getCommand()
 
 void FGame::setName(QString val)
 {
+    if(val.length()<=0)
+        return;
+
     this->gameName = val;
 }
 
