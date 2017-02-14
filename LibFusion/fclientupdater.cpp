@@ -10,9 +10,7 @@ FClientUpdater::FClientUpdater(QObject *parent) : QObject(parent)
 VersionCheckResult FClientUpdater::getLatestVersion(FusionVersions version)
 {
     VersionCheckResult latestStable;
-    VersionCheckResult latestStable_alt;
     VersionCheckResult latestNightly;
-    VersionCheckResult latestNightly_alt;
     VersionCheckResult latestVersion;
 
     FusionSources nightlySource = FusionSources::srcNightly;
@@ -24,13 +22,6 @@ VersionCheckResult FClientUpdater::getLatestVersion(FusionVersions version)
 
     //we check the Stable-Version anyway.
     latestStable = readOnlineVersionFile(UPDATER_VERSION_STBL_FILE);
-    latestStable_alt = readOnlineVersionFile(UPDATER_VERSION_STBL_FILE_ALT);
-
-    if (latestStable_alt.VersionOnline > latestStable.VersionOnline)
-    {
-        latestStable = latestStable_alt;
-        stableSource = FusionSources::srcStable_Alt;
-    }
 
     latestSource = stableSource;
     latestVersion = latestStable;
@@ -38,13 +29,7 @@ VersionCheckResult FClientUpdater::getLatestVersion(FusionVersions version)
     if (version == FusionVersions::Nightly)
     {
         latestNightly = readOnlineVersionFile(UPDATER_VERSION_NIGHTLY_FILE);
-        latestNightly_alt = readOnlineVersionFile(UPDATER_VERSION_NIGHTLY_FILE_ALT);
 
-        if (latestNightly_alt.VersionOnline > latestNightly.VersionOnline)
-        {
-            latestNightly = latestNightly_alt;
-            nightlySource = FusionSources::srcNightly_Alt;
-        }
 
         if (latestNightly.VersionOnline > latestStable.VersionOnline)
         {
@@ -129,7 +114,7 @@ VersionCheckResult FClientUpdater::checkForUpdate(bool useNightly)
     if (latestOnline.VersionOnline > installedVersion)
     {
         result = latestOnline;
-        if (latestOnline.Source == FusionSources::srcStable || latestOnline.Source == FusionSources::srcStable_Alt)
+        if (latestOnline.Source == FusionSources::srcStable)
             result.Status = FUpdaterResult::StableAvailable;
         else
             result.Status = FUpdaterResult::NightlyAvailable;

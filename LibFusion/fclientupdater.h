@@ -20,7 +20,7 @@
 
 enum FUpdaterResult { UpToDate, ErrorOnCheckingOnline, ErrorOnCheckingLocal, StableAvailable, NightlyAvailable };
 enum FusionVersions { Stable, Beta, Nightly };
-enum FusionSources { srcStable, srcStable_Alt, srcNightly, srcNightly_Alt };
+enum FusionSources { srcStable, srcNightly };
 
 
 struct FusionVersion {
