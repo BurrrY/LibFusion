@@ -514,6 +514,9 @@ bool FDB::watchedFolderExists(FWatchedFolder *wf)
 
 bool FDB::addWatchedFolder(FWatchedFolder wf)
 {
+    if(watchedFolderExists(&wf))
+        return false;
+
     QSqlQuery q;
     q.prepare("INSERT INTO watchedFolders (path, launcherID, forLauncher) VALUES (:wfPath, :wfLauncherID, :wfforLauncher);");
     q.bindValue(":wfLauncherID", wf.getLauncherID());

@@ -27,6 +27,14 @@ public:
     QList<FGame *> getGameList();
     int getGameCount();
 
+    /**
+    * @brief get a Preference in QString-Format from database.
+    *
+    * @param pref
+    *
+    * @TODO replace with getPref(), returning a QVariant
+    * @return 
+    */
     QString getTextPref(QString pref);
     QString getTextPref(QString pref, QString defaultValue);
     bool addTextPref(QString pref, QString value);
@@ -38,6 +46,11 @@ public:
     bool addIntPref(QString pref, int value);
     bool updateIntPref(QString pref, int value);
 
+    /**
+    * @brief Delete Current Watched Folders, and insert data 
+    *
+    * @return true, if operation successfull 
+    */
     bool updateWatchedFolders(QList<FWatchedFolder> data);
     QList<FWatchedFolder> getWatchedFoldersList();
     bool watchedFolderExists(FWatchedFolder *wf);
